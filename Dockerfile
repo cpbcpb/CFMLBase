@@ -1,10 +1,19 @@
 FROM amazonlinux:2
 
+# We probably should add some labels. Reference: https://docs.docker.com/config/labels-custom-metadata/
+LABEL version="1.0"
+LABEL description="A Base Image\
+for coldFusion applications with commandbox."
+
+
 # We add the commandbox repo definition so we can install our software.
 COPY commandbox.repo /etc/yum.repos.d/commandbox.repo
 
 RUN yum update -y && \
-    yum install -y java-1.8.0 commandbox-4.8.0-1 which && \
+    yum install -y \
+        java-1.8.0 \
+        commandbox-4.8.0-1 \
+        which && \
     rm -rf /var/cache/yum /var/lib/yum && \
     yum clean all
 
