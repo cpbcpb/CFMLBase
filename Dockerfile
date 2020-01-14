@@ -31,6 +31,7 @@ RUN mkdir wwwroot && \
     box server start name=genericRealAuctionServer && box server stop && \
     box artifacts clean --force
 
+# What happens if the project exists?
 RUN echo "<H1>Hello.</H1> Blank project here. Did you forget to bind your volume?" > /cfml/wwwroot/index.cfm 
 
 # TODO: setup healthcheck 
