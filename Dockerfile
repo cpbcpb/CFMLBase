@@ -1,5 +1,9 @@
 FROM amazonlinux:2
 
+# -Chris- Maybe we should add some labels?  like
+LABEL maintainer="oamaro@realauction.com"
+LABEL build_date="2020-01-14"
+
 # We add the commandbox repo definition so we can install our software.
 COPY commandbox.repo /etc/yum.repos.d/commandbox.repo
 
@@ -21,8 +25,10 @@ COPY server.json ./
 COPY lib lib
 
 # Pre-warm servlet container
+# -Chris- Maybe we should add a name to the commandbox server?  Otherwise it will be wwwroot, 
+# may be confusing to people developing more than 1 app...
 RUN mkdir wwwroot && \
-    box server start && box server stop && \
+    box server start name=genericRealAuctionServer && box server stop && \
     box artifacts clean --force
 
 RUN echo "<H1>Hello.</H1> Blank project here. Did you forget to bind your volume?" > /cfml/wwwroot/index.cfm 
