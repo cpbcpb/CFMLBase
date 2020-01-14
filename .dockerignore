@@ -1,0 +1,29 @@
+#definitely don't want to save git history to image
+.git
+
+#   reference https://codefresh.io/docker-tutorial/not-ignore-dockerignore-2/
+#   reference 2 https://docs.docker.com/engine/reference/builder/#dockerignore-file
+
+#   TLDR: May want to include logs, .aws .env private keys, caches, .bakk backup files, 
+#   test results, anything not needed in image
+# or that might expose secrets or invalidate the cache because it updates so frequently
+
+
+# You can include the Dockerfile in the .dockerignore.  This makes it harder for 
+# consumers of the image to understand how it was built but it
+# is a good idea of the Dockerfile contains any sensitive information.
+
+
+#           Reduce docker image size
+
+#           Prevent unintended secrets exposure
+#               for example, 
+#                .git .aws .env private keys cache and other files that are not needed in the docker build context
+#               or the final Docker image.
+
+#           The docker build cache invalidation.....
+#                When copying in the webapp files for example, copying in 
+#                   logs, test results, git history,
+#                   temporary cache will regenerate this layer for every docker build run...
+
+# Syntax not exactly the same as git ignore... see reference
