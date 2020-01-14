@@ -11,7 +11,7 @@ RUN yum update -y && \
 # all our application work is in this folder
 WORKDIR /cfml
 
-ENV WORK_ENVIRONMENT=DEVELOP \
+ENV WORK_ENVIRONMENT=DEVELOP \  
     JAVA_MAXHEAP=1024 \
     WEB_PORT=8080
 
@@ -30,6 +30,7 @@ RUN echo "<H1>Hello.</H1> Blank project here. Did you forget to bind your volume
 # TODO: setup healthcheck 
 # HEALTHCHECK --interval=20s --timeout=30s --retries=15 CMD curl --fail ${HEALTHCHECK_URI} || exit 1
 
-EXPOSE 8080 8443
+# Exposes Env WEB_PORT.  IF Not set, defaults to 8080.  see reference https://docs.docker.com/engine/reference/builder/#environment-replacement
+EXPOSE ${WEB_PORT:-8080} 8443
 
 CMD ["box","server","start","console=true"]
