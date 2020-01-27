@@ -8,13 +8,12 @@ RUN yum update -y && \
     rm -rf /var/cache/yum /var/lib/yum && \
     yum clean all
 
-# all our application work is in this folder
-WORKDIR /cfml
-
 ENV WORK_ENVIRONMENT=DEVELOP \
     JAVA_MAXHEAP=1024 \
     WEB_PORT=8080
 
+# I changed /cfml to /web for testing out taxlien
+ONBUILD WORKDIR /web
 ONBUILD COPY server.json ./
 
 # external libs, e.g Redis and AWS
@@ -26,7 +25,7 @@ ONBUILD RUN mkdir ROOT && \
     box server start && box server stop && \
     box artifacts clean --force
 
-ONBUILD RUN echo "<H1>Hello.</H1> Blank project here. Did you forget to bind your volume?" > /cfml/ROOT/index.cfm 
+# ONBUILD RUN echo "<H1>Hello.</H1> Blank project here. Did you forget to bind your volume?" > /web/ROOT/index.cfm 
 
 # TODO: setup healthcheck, healthcheck should probably also be in onbuild?
 # HEALTHCHECK --interval=20s --timeout=30s --retries=15 CMD curl --fail ${HEALTHCHECK_URI} || exit 1
