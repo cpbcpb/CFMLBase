@@ -15,21 +15,22 @@ ENV WORK_ENVIRONMENT=DEVELOP \
     JAVA_MAXHEAP=1024 \
     WEB_PORT=8080
 
-COPY server.json ./
+ONBUILD COPY server.json ./
 
 # external libs, e.g Redis and AWS
-COPY lib lib
+ONBUILD COPY lib lib
 
 # Pre-warm servlet container
-RUN mkdir wwwroot && \
+# I changed wwwroot to root for testing out taxlien
+ONBUILD RUN mkdir ROOT && \
     box server start && box server stop && \
     box artifacts clean --force
 
-RUN echo "<H1>Hello.</H1> Blank project here. Did you forget to bind your volume?" > /cfml/wwwroot/index.cfm 
+ONBUILD RUN echo "<H1>Hello.</H1> Blank project here. Did you forget to bind your volume?" > /cfml/ROOT/index.cfm 
 
-# TODO: setup healthcheck 
+# TODO: setup healthcheck, healthcheck should probably also be in onbuild?
 # HEALTHCHECK --interval=20s --timeout=30s --retries=15 CMD curl --fail ${HEALTHCHECK_URI} || exit 1
-
+# TODO: can delete lib and server.json from this CPBCPB
 EXPOSE 8080 8443
 
 CMD ["box","server","start","console=true"]
