@@ -1,16 +1,10 @@
 FROM amazonlinux:2
 
-<<<<<<< HEAD
 # We probably should add some labels. Reference: https://docs.docker.com/config/labels-custom-metadata/
 LABEL version="1.0"
 LABEL description="A Base Image\
 for coldFusion applications with commandbox."
 
-=======
-# -Chris- Maybe we should add some labels?  like
-LABEL maintainer="oamaro@realauction.com"
-LABEL build_date="2020-01-14"
->>>>>>> allchrischanges
 
 # We add the commandbox repo definition so we can install our software.
 COPY commandbox.repo /etc/yum.repos.d/commandbox.repo
