@@ -1,14 +1,24 @@
+<<<<<<< HEAD
+=======
+# -Chris- Best practice to have a .dockerignore
+
+>>>>>>> allchrischanges
 #definitely don't want to save git history to image
 .git
 
 #   reference https://codefresh.io/docker-tutorial/not-ignore-dockerignore-2/
 #   reference 2 https://docs.docker.com/engine/reference/builder/#dockerignore-file
+<<<<<<< HEAD
 
 #   TLDR: May want to include logs, .aws .env private keys, caches, .bakk backup files, 
 #   test results, anything not needed in image
 # or that might expose secrets or invalidate the cache because it updates so frequently
 
 
+=======
+#   May want to also include logs, .aws .env private keys, cache, test results, anything not needed in image
+# or that will expose secrets or invalidate the cache because it updates so frequently...
+>>>>>>> allchrischanges
 # You can include the Dockerfile in the .dockerignore.  This makes it harder for 
 # consumers of the image to understand how it was built but it
 # is a good idea of the Dockerfile contains any sensitive information.
